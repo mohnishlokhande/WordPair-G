@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
+import './randomWords.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,47 +9,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final wordPair = WordPair.random();
     return MaterialApp(
         theme: ThemeData(primaryColor: Colors.blue[700]), home: RandomWords());
   }
 }
 
-class RandomWords extends StatefulWidget {
-  @override
-  RandomWordsState createState() => RandomWordsState();
-}
 
-class RandomWordsState extends State<RandomWords> {
-  final _randomWordPairs =
-      <WordPair>[]; // by using this [], it means it is a list.
-
-  Widget _buildList() {
-    return ListView.builder(
-        padding: const EdgeInsets.all(16.0),
-        itemBuilder: (context, item) {
-          if (item.isOdd) return Divider();
-
-          final index = item ~/ 2;
-
-          if (index >= _randomWordPairs.length) {
-            _randomWordPairs.addAll(generateWordPairs().take(10));
-          }
-
-          return _buildRow(_randomWordPairs[index]);
-        });
-  }
-
-  Widget _buildRow(WordPair pair) {
-    return ListTile(
-        title: Text(pair.asPascalCase, style: TextStyle(fontSize: 18.0)));
-  }
-
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: Text('Word Pair')), body: _buildList());
-  }
-}
 
 
 
